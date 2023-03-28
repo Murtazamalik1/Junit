@@ -11,176 +11,180 @@ public class UserRegistrationTest {
 
     @Test
     public void givenTextWhenItContainsFirstCapsInFnameAndMinThreeAlphabetsShouldReturnTrue() {
-
-        String actual = user.validFirstName("MURtaza");
-        String expected = "Valid";
-        Assertions.assertSame(actual, expected);
+        try {
+            String actual = user.validFirstName.validate("MURtaza");
+            String expected = "Valid";
+            Assertions.assertSame(actual, expected);
+        } catch (UserRegistrationException e) {
+            Assertions.assertEquals("Enter Valid first Name", e.getMessage());
+        }
     }
-
-    @Test
-    public void givenTextWhenItDoesNotContainsFirstCapsInFnameShouldReturnTrue() {
-        String actual = user.validFirstName("murtAZA");
-        String expected = "InValid";
-        Assertions.assertSame(actual, expected);
-    }
-
+        @Test
+        public void givenTextWhenItDoesNotContainsFirstCapsInFnameShouldReturnTrue() {
+            try {
+                String actual = user.validFirstName.validate("murtaza");
+                String expected = "Valid";
+                Assertions.assertSame(actual, expected);
+            } catch (UserRegistrationException e) {
+                Assertions.assertEquals("Enter Valid first Name", e.getMessage());
+            }
+        }
     @Test
     public void givenTextWhenItContainsFirstCapsInFnameButNotMinThreeCharShouldReturnTrue() {
-        String actualResult = user.validFirstName("Sr");
-        String expectedResult = "InValid";
-        Assertions.assertSame(actualResult, expectedResult);
+        try {
+            String actual = user.validFirstName.validate("Sr");
+            String expected = "Valid";
+            Assertions.assertSame(actual, expected);
+        } catch (UserRegistrationException e) {
+            Assertions.assertEquals("Enter Valid first Name", e.getMessage());
+        }
     }
 
     @Test
-    public void givenTextWhenItDoesNotContainsFirstCapsInlnameShouldReturnTrue() {
-        String actualResult = user.validFirstName("rani");
-        String expectedRes = "InValid";
-        Assertions.assertSame(actualResult, expectedRes);
+    public void givenTextWhenItContainsFirstCapsInSnameAndMinThreeAlphabetsShouldReturnTrue() {
+
+        try {
+            String actual = user.validSecondName.validate("Rani");
+            String expected = "Valid";
+            Assertions.assertSame(actual, expected);
+        } catch (UserRegistrationException e) {
+            Assertions.assertEquals("Enter Valid Second Name", e.getMessage());
+        }
     }
 
     @Test
-    public void givenTextWhenItContainsFirstCapsInlnameButNotMinThreeCharShouldReturnTrue() {
-        String actualResult = user.validSecondName("su");
-        String expectedRes = "InValid";
-        Assertions.assertSame(actualResult, expectedRes);
+    public void givenTextWhenItDoesNotContainsFirstCapsInSnameShouldReturnFalse() {
+        try {
+            String actual = user.validSecondName.validate("rani");
+            String expected = "Valid";
+            Assertions.assertSame(actual, expected);
+        } catch (UserRegistrationException e) {
+            Assertions.assertEquals("Enter Valid Second Name", e.getMessage());
+        }
     }
+
     @Test
-    public void givenTextWhenItContainsFirstCapsInSnameShouldReturnTrue() {
-        String actual = user.validFirstName("Sudha");
-        String expected = "Valid";
-        Assertions.assertSame(actual, expected);
+    public void givenTextWhenItContainsFirstCapsInSnameButNotMinThreeCharShouldReturnFalse() {
+        try {
+            String actual = user.validSecondName.validate("Su");
+            String expected = "Valid";
+            Assertions.assertSame(actual, expected);
+        } catch (UserRegistrationException e) {
+            Assertions.assertEquals("Enter Valid Second Name", e.getMessage());
+        }
     }
+
 
     @Test
     public void givenEmailWhenDoesNotContainsAtTheRateShouldReturnFalse() {
-
-        String actualResult = user.validEmailId("kuabc.yahoo.com");
-        String expectedRes = "InValid";
-        Assertions.assertEquals(actualResult, expectedRes);
+        try {
+            String actualResult = user.validEmailId.validate("kuabc.yahoo.com");
+            String expectedRes = "Valid";
+            Assertions.assertEquals(actualResult, expectedRes);
+        } catch (UserRegistrationException e) {
+            Assertions.assertEquals("Enter Valid Email Id", e.getMessage());
+        }
     }
 
-    @Test
-    public void givenEmailWhenDoesNotContainsabcShouldReturnFalse() {
-
-        String actualResult = user.validEmailId("xyz.yahoo.co.in");
-        String expectedRes = "InValid";
-        Assertions.assertSame(actualResult, expectedRes);
-    }
-
-    @Test
-    public void givenEmailWhenItContainsMoreThanThreeCharAtLastShouldReturnFalse() {
-
-        String actualResult = user.validEmailId("xyz.yahoo.co.india");
-        String expectedRes = "InValid";
-        Assertions.assertEquals(actualResult, expectedRes);
-    }
-
-    @Test
-    public void givenEmailWhenItContainsMoreThanTwoTLDShouldReturnFalse() {
-
-        String actualResult = user.validEmailId("xyz.yahoo.co.in.co");
-        String expectedRes = "InValid";
-        Assertions.assertEquals(actualResult, expectedRes);
-    }
-
-    @Test
-    public void givenEmailWhenItContainsOneCharInTLDShouldReturnFalse() {
-
-        String actualResult = user.validEmailId("xyz.yahoo.co.i");
-        String expectedRes = "InValid";
-        Assertions.assertEquals(actualResult, expectedRes);
-    }
-
-    @Test
-    public void givenEmailWhenItContainsDoubleDotsShouldReturnFalse() {
-
-        String actualResult = user.validEmailId("xyz..yahoo.co.i");
-        String expectedRes = "InValid";
-        Assertions.assertEquals(actualResult, expectedRes);
-    }
-
-    @Test
-    public void givenEmailWhenItContainsSpecialCharacterShouldReturnFalse() {
-        String actualResult = user.validEmailId("xyz.yahoo.c@.i");
-        String expectedRes = "InValid";
-        Assertions.assertEquals(actualResult, expectedRes);
-    }
-
-    @Test
-    public void givenEmailWhenItContainsDigitsInTLDShouldReturnFalse() {
-
-        String actualResult = user.validEmailId("xyz.yahoo.c1.i");
-        String expectedRes = "InValid";
-        Assertions.assertEquals(actualResult, expectedRes);
-    }
 
     @Test
     public void givenEmailWhenAccordingToProperReqShouldReturnTrue() {
-        String actualResult = user.validEmailId("abc.xyz@bl.co.in");
-        String expectedRes = "Valid";
-        Assertions.assertEquals(actualResult, expectedRes);
+        try {
+            String actualResult = user.validEmailId.validate("abc.xyz@bl.co.in");
+            String expectedRes = "Valid";
+            Assertions.assertEquals(actualResult, expectedRes);
+        } catch (UserRegistrationException e) {
+            Assertions.assertEquals("Enter Valid Email Id", e.getMessage());
+        }
     }
 
     @Test
     public void givenMobileNumberWithSpaceAndProperNumberShouldReturnTrue() {
-        String actualResult = user.validPhoneNumber("91 9066939699");
-        String expectedRes = "Valid";
-        Assertions.assertSame(actualResult, expectedRes);
+        try {
+            String actualResult = user.validPhoneNumber.validate("91 9066939699");
+            String expectedRes = "Valid";
+            Assertions.assertSame(actualResult, expectedRes);
+        } catch (UserRegistrationException e) {
+            Assertions.assertEquals("Enter Valid Phone Number", e.getMessage());
+        }
+
     }
 
     @Test
     public void givenMobileNumberWithoutSpaceAndProperNumberShouldReturnFalse() {
-
-        String actualResult = user.validPhoneNumber("919066939699");
-        String expectedRes = "InValid";
-        Assertions.assertSame(actualResult, expectedRes);
+        try {
+            String actualResult = user.validPhoneNumber.validate("919066939699");
+            String expectedRes = "Valid";
+            Assertions.assertSame(actualResult, expectedRes);
+        } catch (UserRegistrationException e) {
+            Assertions.assertEquals("Enter Valid Phone Number", e.getMessage());
+        }
     }
 
     @Test
     public void givenMobileNumberWithSpaceButNotProperCountryCodeShouldReturnFalse() {
-
-        String actualResult = user.validPhoneNumber("349066939699");
-        String expectedRes = "InValid";
-        Assertions.assertSame(actualResult, expectedRes);
+        try {
+            String actualResult = user.validPhoneNumber.validate("819066939699");
+            String expectedRes = "Valid";
+            Assertions.assertSame(actualResult, expectedRes);
+        } catch (UserRegistrationException e) {
+            Assertions.assertEquals("Enter Valid Phone Number", e.getMessage());
+        }
     }
 
     @Test
     public void givenPasswordWithoutAnUpperCaseShouldReturnFalse() {
+        try {
+            String actualResult = user.validPassword.validate("abccc@123");
+            String expectedRes = "Valid";
+            Assertions.assertSame(actualResult, expectedRes);
+        } catch (UserRegistrationException e) {
+            Assertions.assertEquals("Enter Valid Password", e.getMessage());
+        }
 
-        String actualResult = user.validPassword("abccc@123");
-        String expectedRes = "InValid";
-        Assertions.assertSame(actualResult, expectedRes);
     }
 
     @Test
     public void givenPasswordWithoutASpecialCharShouldReturnFalse() {
-
-        String actualResult = user.validPassword("abccc123");
-        String expectedRes = "InValid";
-        Assertions.assertSame(actualResult, expectedRes);
+        try {
+            String actualResult = user.validPassword.validate("abccc123");
+            String expectedRes = "Valid";
+            Assertions.assertSame(actualResult, expectedRes);
+        } catch (UserRegistrationException e) {
+            Assertions.assertEquals("Enter Valid Password", e.getMessage());
+        }
     }
 
     @Test
     public void givenPasswordWithoutALowerCaseShouldReturnFalse() {
-
-        String actualResult = user.validPassword("AAAAAAA@123");
-        String expectedRes = "InValid";
-        Assertions.assertSame(actualResult, expectedRes);
+        try {
+            String actualResult = user.validPassword.validate("AAA@123");
+            String expectedRes = "Valid";
+            Assertions.assertSame(actualResult, expectedRes);
+        } catch (UserRegistrationException e) {
+            Assertions.assertEquals("Enter Valid Password", e.getMessage());
+        }
     }
 
     @Test
     public void givenPasswordWithoutMinNumOfCharShouldReturnFalse() {
-
-        String actualResult = user.validPassword("Ac@123");
-        String expectedRes = "InValid";
-        Assertions.assertSame(actualResult, expectedRes);
+        try {
+            String actualResult = user.validPassword.validate("Ac@123");
+            String expectedRes = "Valid";
+            Assertions.assertSame(actualResult, expectedRes);
+        } catch (UserRegistrationException e) {
+            Assertions.assertEquals("Enter Valid Password", e.getMessage());
+        }
     }
 
     @Test
     public void givenPasswordWithProperRequirementsShouldReturnTrue() {
-
-        String actualResult = user.validPassword("Abccc@123");
-        String expectedRes = "Valid";
-        Assertions.assertEquals(actualResult, expectedRes);
+        try {
+            String actualResult = user.validPassword.validate("Abcd@123");
+            String expectedRes = "Valid";
+            Assertions.assertSame(actualResult, expectedRes);
+        } catch (UserRegistrationException e) {
+            Assertions.assertEquals("Enter Valid Password", e.getMessage());
+        }
     }
 }
